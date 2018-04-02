@@ -20,9 +20,13 @@ Session Variables:
   Make sure to have the session_start() method declared at the top of your file(s).
   
   For User ID: $_SESSION['userID'];
+  
+  
   For Course Role: $_SESSION['courseRoleID'];
+  
+  
   For User Name: $_SESSION['userName'];
   
-  for some reason this document automatically underlines the stuff in the brackets so just ignore that. if you need any other variables let me know and i'll add them. 
+  if you need any other variables let me know and i'll add them. 
   
   
