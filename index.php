@@ -1,5 +1,8 @@
 <?PHP
 
+//Start the session, important for passing data 
+session_start();
+
 $url = $_POST['launch_presentation_return_url'];
 $query=parse_url($url,PHP_URL_QUERY);
 parse_str($query, $out);
@@ -21,7 +24,7 @@ $token = new Token();
 
 $token = $rest->authorize();
 $access_token = $token->access_token;
-
+//lalalalalalalalalalalalalalalalalalalala
 //Use's the uuid to read the current user data 
 $user = $rest->readUser($access_token, 'uuid:'.$user_id);
 
@@ -31,9 +34,15 @@ $user_id  = $user->id;
 //Reads the Membership of the current user
 $membership = $rest->readMembership($access_token, $course_id, $user_id);
 
+//Store relevant rest data into session variables, so data can be used on other pages
+$_SESSION['userID'] = $user_id;
+$_SESSION['courseRoleID'] = $membership->courseRoleId;
+$_SESSION['userName'] = $user->userName;
+ 
 if($membership->courseRoleId == "Student"){
 
 	/********Insert student-version form here********/
+	//echo "<meta http-equiv='refresh' content='0;URL=https://nlc3.hopto.org:9033/371project/student2.php' />";
 	echo "<meta http-equiv='refresh' content='0;URL=student.php' />";
 } elseif ($membership->courseRoleId == "Instructor"){
 
