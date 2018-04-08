@@ -45,11 +45,16 @@ function js_post_toggle_vote(entry_id) {
 /******************************************************************************
 * 
 ******************************************************************************/  
-function js_view_comments(entry_id) {
+function js_view_comments(entry_id, recursed=false) {
 
-    js_store_window_position();
+    if (!recursed){
+        js_store_window_position();
+    }
 
-    $('#'+entry_id).siblings().hide();
+    $('body').scrollTop(0);
+    //$('html, body').animate({ scrollTop: 0 }, 'fast');
+
+    $('#'+entry_id).siblings().hide('slow');
     $('#btn'+entry_id).text("RETURN  »");
     $('#btn'+entry_id).css("font-weight","Bold");
     $('#btn'+entry_id).attr("onclick","comments_return('"+entry_id+"')");
@@ -111,6 +116,8 @@ function js_view_comments(entry_id) {
             }      
         }
     });
+
+
 }
 
 /******************************************************************************
@@ -118,8 +125,8 @@ function js_view_comments(entry_id) {
 ******************************************************************************/  
 function comments_return(entry_id) {
 
-    $('.ent-cmt').remove();
-    $('#'+entry_id).siblings().show();
+    $('.ent-cmt').fadeOut('slow', function(){ $(this).remove(); });
+    $('#'+entry_id).siblings().fadeIn('slow');
     $('#btn'+entry_id).text("VIEW COMMENTS »");
     $('#btn'+entry_id).attr("onclick","js_view_comments('"+entry_id+"')");
 
@@ -146,8 +153,9 @@ function new_comment(entry_id){
     
         success: function(msg){
             
+            //$('.ent-cmt').hide('fast', function(){ $(this).remove(); });
             $('.ent-cmt').remove();
-            js_view_comments(entry_id);
+            js_view_comments(entry_id, true);
             post_get_total_comments(entry_id);
 
         }

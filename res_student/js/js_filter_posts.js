@@ -84,20 +84,20 @@ $(document).ready(function() {
 function filter_posts() {
 
 	if (array_post_filter.length == 0){
-    	$('.typewebsite').show();
-    	$('.typebook').show();
-    	$('.typearticle').show();
-    	$('.typevideo').show();
+    	$('.typewebsite').show('slow');
+    	$('.typebook').show('slow');
+    	$('.typearticle').show('slow');
+    	$('.typevideo').show('slow');
     }
     else {
     	for (var type in array_post_filter_const) {
   
     		if ($.inArray(array_post_filter_const[type], array_post_filter) == -1) {
-    			$('.type' + array_post_filter_const[type]).hide();
+    			$('.type' + array_post_filter_const[type]).slideUp('slow');
     
     		}
     		else {
-    			$('.type' + array_post_filter_const[type]).show();	
+    			$('.type' + array_post_filter_const[type]).slideDown('slow');	
     		}
     	}
     }
