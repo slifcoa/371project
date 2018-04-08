@@ -25,6 +25,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/js_config.js"></script>
 <script type="text/javascript" src="js/js_util.js"></script>
+
 <body class="w3-light-grey">
 
 <!-- w3-content defines a container for fixed size centered content, 
@@ -52,6 +53,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     while($row = mysqli_fetch_array($result)) {
 
         $upvote_text = page_load_query_post_vote_text($db_connection, $row['post_id']);  
+        $type = $row['type'];
 
         $func_add_link  = page_load_post_add_link($row['link']);
         $func_add_title = page_load_post_add_title($row['title']);
@@ -64,7 +66,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         echo <<<HTML
 
             <div    id="{$row['post_id']}" 
-                    class="w3-card-4 w3-margin w3-white">
+                    class="w3-card-4 w3-margin w3-white type{$type}">
                 {$func_add_image}
                 <div class="w3-container">
                     {$func_add_title}
@@ -88,14 +90,16 @@ and is wrapped around the whole page content, except for the footer in this exam
                     </div>
                 </div>
             </div>
-            <hr>
+           <!-- <hr> -->
 HTML;
     }
 
 ?>
+  
 
 <!-- END BLOG ENTRIES -->
 </div>
+
 
 <!-- Introduction menu -->
 <div class="w3-col l4">
@@ -114,48 +118,56 @@ HTML;
   echo  "</div>";
   echo "</div><hr>";
   ?>
+
   
-  <!-- Posts -->
+  <!-- Sort Posts -->
   <div class="w3-card w3-margin">
     <div class="w3-container w3-padding">
-      <h4>Popular Posts</h4>
+      <h4>Sort Posts</h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
-      <li class="w3-padding-16">
-        <img src="/w3images/workshop.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Lorem</span><br>
-        <span>Sed mattis nunc</span>
+
+      <li class="w3-padding-16" onclick="sort_posts_newest()">
+        <img src="images/icon_date_first.png" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large">Newest</span><br>
+        <span> &ensp; </span>
       </li>
+
+      <li class="w3-padding-16" onclick="sort_posts_oldest()">
+        <img src="images/icon_date_last.png" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large">Oldest</span><br>
+        <span> &ensp; </span>
+      </li>
+
       <li class="w3-padding-16">
-        <img src="/w3images/gondol.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Ipsum</span><br>
-        <span>Praes tinci sed</span>
+        <img src="images/icon_upvote.png" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large">Most Upvoted</span><br>
+        <span>  (Coming Soon) </span>
       </li> 
-      <li class="w3-padding-16">
-        <img src="/w3images/skies.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Dorum</span><br>
-        <span>Ultricies congue</span>
-      </li>   
+
       <li class="w3-padding-16 w3-hide-medium w3-hide-small">
-        <img src="/w3images/rock.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">
-        <span class="w3-large">Mingsum</span><br>
-        <span>Lorem ipsum dipsum</span>
+        <img src="images/icon_comment.png" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large">Most Commented</span><br>
+        <span>  (Coming Soon) </span>
       </li>  
+
     </ul>
   </div>
   <hr> 
  
-  <!-- Labels / tags -->
+  <!-- Filter Posts -->
   <div class="w3-card w3-margin">
     <div class="w3-container w3-padding">
-      <h4>Tags</h4>
+      <h4>Filter Posts</h4>
     </div>
     <div class="w3-container w3-white">
-    <p><span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">London</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">DIY</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Family</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Shopping</span>
-      <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Games</span>
+    <p>
+    
+      <span id="post_filter_website" class="w3-tag w3-light-grey w3-small w3-margin-bottom" onmouseover="" style="cursor: pointer;">Website</span> 
+      <span id="post_filter_book"    class="w3-tag w3-light-grey w3-small w3-margin-bottom" onmouseover="" style="cursor: pointer;">Book</span>
+      <span id="post_filter_article" class="w3-tag w3-light-grey w3-small w3-margin-bottom" onmouseover="" style="cursor: pointer;">Article</span> 
+      <span id="post_filter_video"   class="w3-tag w3-light-grey w3-small w3-margin-bottom" onmouseover="" style="cursor: pointer;">Video</span> 
+      
     </p>
     </div>
   </div>
@@ -177,6 +189,7 @@ HTML;
 </footer>-->
 
 
-
+<script type="text/javascript" src="js/js_filter_posts.js"></script>
+<script type="text/javascript" src="js/js_sort_posts.js"></script>
 </body>
 </html>

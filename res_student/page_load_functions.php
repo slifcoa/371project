@@ -17,7 +17,7 @@
 
         SELECT *
         FROM project_posts
-
+        ORDER BY post_id DESC 
 SQL;
         return mysqli_query($connection, $query);
     }
