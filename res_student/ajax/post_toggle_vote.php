@@ -3,7 +3,7 @@
 	session_start();
 
 	// Get all constants from config file.
-    include '../../config.php';
+    include_once '../../config.php';
 
     // Authenticate that the user came from BlackBoard.
     require_once($path_auth);

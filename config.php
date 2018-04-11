@@ -22,6 +22,8 @@
 	**********************************/
 	$path_auth  		 = $dir_base . 'authenticate.php'; 
 	$path_post_functions = $dir_base . "res_student/page_load_functions.php";
+	$path_sql_queries    = $dir_base . "res_student/sql/sql_queries.php";
+	$path_ajax_calls	 = $dir_base . "res_student/ajax/ajax_calls.php";
 
 	/**********************************
 	* DATABASE RESOURCES
