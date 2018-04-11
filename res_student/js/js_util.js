@@ -25,18 +25,20 @@ function js_post_toggle_vote(entry_id) {
  
     $.ajax({
     
-        url:    config.AJAX_PATH + "post_toggle_vote.php",
+        url:    config.AJAX_PATH,
         cache:  false,
         method: 'POST',
         data:   {
+                    use_case: 'post_toggle_vote',
                     post_id: entry_id
+
                 },
         dataType: 'json',
         success: function(msg){
             
-            $('#upvotes'+entry_id).text(msg.upvotes_total);
+            $('#upvotes'+entry_id).text(msg.votes_total);
             var upvote_btn = $('#btnupvote'+entry_id);
-            $(upvote_btn).text(msg.upvotes_text);
+            $(upvote_btn).text(msg.votes_text);
             $(upvote_btn).css("font-weight","Bold");
         }
     });
@@ -47,6 +49,7 @@ function js_post_toggle_vote(entry_id) {
 ******************************************************************************/  
 function js_view_comments(entry_id, recursed=false) {
 
+    // Only store the window position if 'view comments' is clicked.
     if (!recursed){
         js_store_window_position();
     }
@@ -77,17 +80,17 @@ function js_view_comments(entry_id, recursed=false) {
         class: 'w3-container'
     }).appendTo('#xz');  
 
-    $('<textarea id="txtareaID" class="w3-border" rows=3 style="width: 100%; margin: 3px; resize: none"></textarea>').appendTo('#xzzz'); 
+    $('<textarea id="txtareaID" class="w3-border" rows=3 style="width: 100%; margin-bottom: 25px; resize: none"></textarea>').appendTo('#xzzz'); 
 
-   //$('<input id=iadd_comment type=text>').appendTo('2add_comment');
-
+   // Fetch all the comments/comment info and create html/css for each.
     $.ajax({
     
-        url:    config.AJAX_PATH + "post_get_all_comments.php",
+        url:    config.AJAX_PATH,
         cache:  false,
         method: 'POST',
         data:   {
-                    entry_name: entry_id
+                    use_case: 'post_comments_all',
+                    post_id: entry_id
                 },
         dataType: 'json',
         success: function(msg){
@@ -143,12 +146,13 @@ function new_comment(entry_id){
 
     $.ajax({
         
-        url:    config.AJAX_PATH + "post_add_comment.php",
+        url:    config.AJAX_PATH,
         cache:  false,
         method: 'POST',
         data:   {   
-                    post_id: entry_id,
-                    comment: textbox.val()
+                    use_case: "post_add_comment",
+                    post_id:  entry_id,
+                    comment:  textbox.val()
                 },
     
         success: function(msg){
@@ -169,11 +173,12 @@ function post_get_total_comments(entry_id) {
 
     $.ajax({
         
-        url:    config.AJAX_PATH + "post_get_total_comments.php",
+        url:    config.AJAX_PATH,
         cache:  false,
         method: 'POST',
         data:   {   
-                    post_id: entry_id
+                    use_case: "select_post_comment_total",
+                    post_id:  entry_id
                 },
     
         success: function(msg){
