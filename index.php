@@ -32,12 +32,20 @@ $user_id  = $user->id;
 //Reads the Membership of the current user
 $membership = $rest->readMembership($access_token, $course_id, $user_id);
 
+//Retrieves data about the course
+$course = $rest->readCourse($access_token, $course_id);
+
 //Store relevant rest data into session variables, so data can be used on other pages
 $_SESSION['user_id'] = $user_id;
 $_SESSION['course_role_id'] = $membership->courseRoleId;
 $_SESSION['user_name'] = $user->userName;
-$_SESSION['course_id'] = $course_id;
 
+//returns the course id taken from the URL
+$_SESSION['course_id'] = $course_id;
+$_SESSION['course_name'] = $course->name;
+
+//returns the normal course id that you'd see associated with a course in blackboard
+$_SESSION['course_id_prefix'] = $course->courseId;
 
 /**********************************
 * SECRET KEY 
