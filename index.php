@@ -47,6 +47,7 @@ $_SESSION['course_name'] = $course->name;
 //returns the normal course id that you'd see associated with a course in blackboard
 $_SESSION['course_id_prefix'] = $course->courseId;
 
+
 /**********************************
 * SECRET KEY 
 **********************************/
