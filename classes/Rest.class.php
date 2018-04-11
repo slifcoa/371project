@@ -29,8 +29,7 @@ class Rest {
                                 'ssl_verify_host'   => $constants->ssl_verify_host
                         ));
 
-		
-		
+
 		try {
 			$response = $request->send();
 			if (200 == $response->getStatus()) {
