@@ -1,6 +1,7 @@
 <?PHP
 //Start the session, important for passing data 
 session_start();
+
 // Needed for initialization of config file.
 include 'config.php';
 
@@ -31,23 +32,22 @@ $user_id  = $user->id;
 //Reads the Membership of the current user
 $membership = $rest->readMembership($access_token, $course_id, $user_id);
 
-//Retrieves data about the course
-$course = $rest->readCourse($access_token, $course_id);
+$email = $user->contact->email;
 
 //Store relevant rest data into session variables, so data can be used on other pages
-$_SESSION['user_id']          = $user_id;
-$_SESSION['course_role_id']   = $membership->courseRoleId;
-$_SESSION['user_name']        = $user->userName;
-$_SESSION['course_id']        = $course_id;
-$_SESSION['course_name']      = $course->name;
-$_SESSION['course_id_prefix'] = $course->courseId;
-$_SESSION['email']            = $email;
-$_SESSION['user_fullname']    = $user->name->given . ' ' . $user->name->family;
+$_SESSION['user_id']   = $user_id;
+$_SESSION['course_role_id'] = $membership->courseRoleId;
+$_SESSION['user_name'] = $user->userName;
+$_SESSION['course_id'] = $course_id;
+$_SESSION['email']     = $email;
+$_SESSION['user_fullname'] = $user->name->given . ' ' . $user->name->family;
+
 
 /**********************************
 * SECRET KEY 
 **********************************/
 $_SESSION['secret_key'] = $secret_key;
+
 if($membership->courseRoleId == "Student"){
 	/********Insert student-version form here********/
 	echo "<meta http-equiv='refresh' content='0;URL=res_student/student.php' />";
