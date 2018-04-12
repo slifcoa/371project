@@ -1,0 +1,19 @@
+body,h1,h2,h3,h4,h5 {
+	font-family: "Raleway", sans-serif;
+}
+
+.width_max_75 {
+	max-width: 75%;
+}
+
+.width_100 {
+	width: 100%;
+}
+
+.width_px_50 {
+	width: 50px;
+}
+
+.cursor_pointer {
+	cursor: pointer;
+}

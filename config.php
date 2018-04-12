@@ -35,4 +35,12 @@
 
 	$db_connection = mysqli_connect($db_location, $db_username, $db_password, $db_database);
 
+	/**********************************
+	* Gravatar
+	**********************************/
+	$default = "mm";
+    $email   = $_SESSION['email'];
+    $size    = 500;
+    $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+
 ?>

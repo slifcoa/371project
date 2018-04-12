@@ -30,13 +30,13 @@ function sort_posts_oldest() {
 	// put sorted results back on page
 	$("#entry_grid").append(myArray);
 
-	$(".w3-card-4").css('background-color','white').hover(
+	/*$(".w3-card-4").css('background-color','white').hover(
     function(){
         $(this).css('box-shadow', '0 4px 20px 0 rgba(0,0,0,0.79)');
     },
     function(){
         $(this).css('box-shadow', '0 4px 10px 0 rgba(0,0,0,0.2)');
-    });
+    });*/
 
 }
 

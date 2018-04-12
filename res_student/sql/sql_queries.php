@@ -28,7 +28,8 @@ SQL;
     }
 
     /******************************************************************************
-    * 
+    * Returns vote status for the post. Returns 1 or 0, 
+    * 1 = Has upvoted, 0 = Hasn't upvoted.
     ******************************************************************************/
     function sql_select_post_vote_status($post_id) {
 
@@ -48,7 +49,7 @@ SQL;
     }
 
     /******************************************************************************
-    * Returns the number of votes for the post.
+    * Returns the number of upvotes for the post.
     ******************************************************************************/
     function sql_select_post_vote_total($post_id) {
 
@@ -85,7 +86,7 @@ SQL;
 
 
     /******************************************************************************
-    * 
+    * Inserts user upvote for post into the database.
     ******************************************************************************/
     function sql_insert_post_vote($post_id) {
 
@@ -104,7 +105,7 @@ SQL;
 
 
     /******************************************************************************
-    * 
+    * Deletes user upvote for post from the database.
     ******************************************************************************/
     function sql_delete_post_vote($post_id) {
 
@@ -122,7 +123,7 @@ SQL;
     }
 
     /******************************************************************************
-    * 
+    * Returns all the comments for a post.
     ******************************************************************************/
     function sql_select_post_comment_all($post_id) {
 
@@ -138,7 +139,7 @@ SQL;
     }
 
     /******************************************************************************
-    * 
+    * Inserts a comment for the post into the database.
     ******************************************************************************/
     function sql_insert_post_comment($post_id, $comment) {
 

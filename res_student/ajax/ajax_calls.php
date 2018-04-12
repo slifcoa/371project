@@ -12,22 +12,37 @@
 
     switch ($_POST['use_case']) {
     	
+        /**********************************************************************
+        * Return the number of votes for a post.
+        **********************************************************************/
     	case 'select_post_vote_total':
     		echo sql_select_post_vote_total($_POST['post_id']);
     		break;
     	
+        /**********************************************************************
+        * Return the number of comments for a post.
+        **********************************************************************/
     	case 'select_post_comment_total':
     		echo sql_select_post_comment_total($_POST['post_id']);
     		break;
     	
+        /**********************************************************************
+        * Return all the posts for the course.
+        **********************************************************************/
     	case 'select_post_all':
-    		echo sql_select_post_all($_POST['post_id']);
+    		echo sql_select_post_all();
     		break;
     	
+        /**********************************************************************
+        * Return the vote status (voted=1 or didn't=0) for a post.
+        **********************************************************************/
     	case 'select_post_vote_status':
     		echo sql_select_post_vote_status($_POST['post_id']);
     		break;
 
+        /**********************************************************************
+        * Toggle the vote status of a post.
+        **********************************************************************/
     	case 'post_toggle_vote':
     		$votes_text;
     		if (sql_select_post_vote_status($_POST['post_id']) < 1){
@@ -50,6 +65,9 @@
 
     		break;
 
+        /**********************************************************************
+        * Return all the comments for a post.
+        **********************************************************************/
     	case 'post_comments_all':
 		    $return_data = array();
     		$results = sql_select_post_comment_all($_POST['post_id']);
@@ -68,11 +86,17 @@
 		    echo json_encode($return_data);
     		break;
 
+        /**********************************************************************
+        * Add a comment to a post.
+        **********************************************************************/
     	case 'post_add_comment':
     		sql_insert_post_comment($_POST['post_id'], $_POST['comment']);
     		echo "";
     		break;
     
+        /**********************************************************************
+        * Return empty string.
+        **********************************************************************/
     	default:
     		echo '';
     		break;

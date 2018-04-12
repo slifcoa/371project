@@ -32,11 +32,15 @@ $user_id  = $user->id;
 //Reads the Membership of the current user
 $membership = $rest->readMembership($access_token, $course_id, $user_id);
 
+$email = $user->contact->email;
+
 //Store relevant rest data into session variables, so data can be used on other pages
-$_SESSION['user_id'] = $user_id;
+$_SESSION['user_id']   = $user_id;
 $_SESSION['course_role_id'] = $membership->courseRoleId;
 $_SESSION['user_name'] = $user->userName;
 $_SESSION['course_id'] = $course_id;
+$_SESSION['email']     = $email;
+$_SESSION['user_fullname'] = $user->name->given . ' ' . $user->name->family;
 
 
 /**********************************
