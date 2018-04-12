@@ -29,8 +29,7 @@ class Rest {
                                 'ssl_verify_host'   => $constants->ssl_verify_host
                         ));
 
-		
-		
+
 		try {
 			$response = $request->send();
 			if (200 == $response->getStatus()) {
@@ -51,7 +50,7 @@ class Rest {
 	
 		public function readCourse($access_token, $course_id) {
 			$constants = new Constants($this->clientURL);
-			$course = new Course();
+			//$course = new Course();
 		
 			$request = new HTTP_Request2($constants->HOSTNAME . $constants->COURSE_PATH . '/' . $course_id, HTTP_Request2::METHOD_GET);
 			$request->setHeader('Authorization', 'Bearer ' . $access_token);
