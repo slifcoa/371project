@@ -208,7 +208,8 @@ HTML;
     <hr> 
  
     <!-- Filter Posts -->
-    <div class="w3-card w3-margin">
+    <div class="w3-card w3-margin"
+         id='id_div_filter_posts'>
         <div class="w3-container w3-padding">
             <h4>Filter Posts</h4>
         </div>

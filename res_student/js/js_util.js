@@ -5,7 +5,8 @@ var window_position;
 ******************************************************************************/
 function js_store_window_position() {
     
-  window_position = $(window).scrollTop();
+    window_position = $(window).scrollTop();
+
 
 }
 
@@ -14,7 +15,12 @@ function js_store_window_position() {
 ******************************************************************************/
 function js_restore_window_position() {
     
-  $(window).scrollTop(window_position);
+    // Old solution.
+    //$(window).scrollTop(window_position);
+
+    $('body,html').animate({
+        scrollTop: window_position
+    }, 1000);
 
 }
 
@@ -54,72 +60,86 @@ function js_view_comments(entry_id, recursed=false) {
         js_store_window_position();
     }
 
-    $('body').scrollTop(0);
-    //$('html, body').animate({ scrollTop: 0 }, 'fast');
+    var scrollSpeed = window_position;
+    if (window_position > 1000) {
+        scrollSpeed = 1000;
+    }
 
-    $('#'+entry_id).siblings().hide('slow');
-    $('#btn'+entry_id).text("RETURN  »");
-    $('#btn'+entry_id).css("font-weight","Bold");
-    $('#btn'+entry_id).attr("onclick","comments_return('"+entry_id+"')");
+    $('body').animate({
+        scrollTop: 0
+    }, scrollSpeed, function() {
 
-    $('<div/>', {
-        id: 'xz',
-        class: 'w3-card-4 w3-margin w3-white ent-cmt'
-    }).appendTo('#entry_grid');  
+        $('#'+entry_id).siblings().hide('slow');
 
-    $('<div/>', {
-        id: 'xzz',
-        class: 'w3-container'
-    }).appendTo('#xz');  
+        //$('body').scrollTop(0);
+        //$('html, body').animate({ scrollTop: 0 }, 'fast');
 
-    //$('<h3><b>Add a comment to this post</b></h3>').appendTo('#xzz');
-    $('<p><b>Add a comment to this post  </b><span class="w3-padding-large w3-right"> <span onmouseover="" style="cursor: pointer;" onclick="new_comment(\''+entry_id+'\')" class="w3-tag">COMMENT</span></span></p>').appendTo('#xzz');
+        //$('#'+entry_id).siblings().hide('slow');
+        $('#btn'+entry_id).text("RETURN  »");
+        $('#btn'+entry_id).css("font-weight","Bold");
+        $('#btn'+entry_id).attr("onclick","comments_return('"+entry_id+"')");
 
-    $('<div/>', {
-        id: 'xzzz',
-        class: 'w3-container'
-    }).appendTo('#xz');  
+        $('<div/>', {
+            id: 'xz',
+            class: 'w3-card-4 w3-margin w3-white ent-cmt'
+        }).appendTo('#entry_grid');  
 
-    $('<textarea id="txtareaID" class="w3-border" rows=3 style="width: 100%; margin-bottom: 25px; resize: none"></textarea>').appendTo('#xzzz'); 
+        $('<div/>', {
+            id: 'xzz',
+            class: 'w3-container'
+        }).appendTo('#xz');  
 
-   // Fetch all the comments/comment info and create html/css for each.
-    $.ajax({
-    
-        url:    config.AJAX_PATH,
-        cache:  false,
-        method: 'POST',
-        data:   {
-                    use_case: 'post_comments_all',
-                    post_id: entry_id
-                },
-        dataType: 'json',
-        success: function(msg){
+        //$('<h3><b>Add a comment to this post</b></h3>').appendTo('#xzz');
+        $('<p><b>Add a comment to this post  </b><span class="w3-padding-large w3-right"> <span onmouseover="" style="cursor: pointer;" onclick="new_comment(\''+entry_id+'\')" class="w3-tag">COMMENT</span></span></p>').appendTo('#xzz');
 
-            for (i = msg.length - 1; i >= 0; i--){
+        $('<div/>', {
+            id: 'xzzz',
+            class: 'w3-container'
+        }).appendTo('#xz');  
 
-                $('<div/>', {
-                    id: 'commentOuterDiv'+msg[i].comment_id,
-                    class: 'w3-card-4 w3-margin w3-white ent-cmt'
-                }).appendTo('#entry_grid');  
+        $('<textarea id="txtareaID" class="w3-border" rows=3 style="width: 100%; margin-bottom: 25px; resize: none"></textarea>').appendTo('#xzzz'); 
 
-                $('<div/>', {
-                    id: 'commentInnerTopDiv'+msg[i].comment_id,
-                    class: 'w3-container'
-                }).appendTo('#commentOuterDiv'+msg[i].comment_id);  
+       // Fetch all the comments/comment info and create html/css for each.
+        $.ajax({
+        
+            url:    config.AJAX_PATH,
+            cache:  false,
+            method: 'POST',
+            data:   {
+                        use_case: 'post_comments_all',
+                        post_id: entry_id
+                    },
+            dataType: 'json',
+            success: function(msg){
 
-                $('<h3><b>'+msg[i].author+'</b></h3>').appendTo('#commentInnerTopDiv'+msg[i].comment_id);
-                $('<h5><b>'+msg[i].date+'</b></h5>').appendTo('#commentInnerTopDiv'+msg[i].comment_id);
+                for (i = msg.length - 1; i >= 0; i--){
 
-                $('<div/>', {
-                    id: 'commentInnerBottomDiv'+msg[i].comment_id,
-                    class: 'w3-container'
-                }).appendTo('#commentOuterDiv'+msg[i].comment_id);  
+                    $('<div/>', {
+                        id: 'commentOuterDiv'+msg[i].comment_id,
+                        class: 'w3-card-4 w3-margin w3-white ent-cmt'
+                    }).appendTo('#entry_grid');  
 
-                $('<p>'+msg[i].story+'</p>').appendTo('#commentInnerBottomDiv'+msg[i].comment_id);
-            }      
-        }
+                    $('<div/>', {
+                        id: 'commentInnerTopDiv'+msg[i].comment_id,
+                        class: 'w3-container'
+                    }).appendTo('#commentOuterDiv'+msg[i].comment_id);  
+
+                    $('<h3><b>'+msg[i].author+'</b></h3>').appendTo('#commentInnerTopDiv'+msg[i].comment_id);
+                    $('<h5><b>'+msg[i].date+'</b></h5>').appendTo('#commentInnerTopDiv'+msg[i].comment_id);
+
+                    $('<div/>', {
+                        id: 'commentInnerBottomDiv'+msg[i].comment_id,
+                        class: 'w3-container'
+                    }).appendTo('#commentOuterDiv'+msg[i].comment_id);  
+
+                    $('<p>'+msg[i].story+'</p>').appendTo('#commentInnerBottomDiv'+msg[i].comment_id);
+                }      
+            }
+        });
+
+        $('#id_div_filter_posts').hide();
+
     });
-
 
 }
 
@@ -134,6 +154,8 @@ function comments_return(entry_id) {
     $('#btn'+entry_id).attr("onclick","js_view_comments('"+entry_id+"')");
 
     js_restore_window_position();
+
+    $('#id_div_filter_posts').show();
  
 }
 
