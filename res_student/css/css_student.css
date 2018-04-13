@@ -21,6 +21,7 @@ body,h1,h2,h3,h4,h5 {
 
 
 .button_float_right {
+	outline:none;
 	position:fixed;
 	right:0;
 	bottom:0;
