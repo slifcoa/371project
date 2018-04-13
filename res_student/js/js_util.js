@@ -212,3 +212,16 @@ function post_get_total_comments(entry_id) {
 
 }
 
+function js_scroll_top() {
+
+    var scrollSpeed = window_position;
+    if (window_position > 1000) {
+        scrollSpeed = 1000;
+    }
+
+    $('body').animate({
+        scrollTop: 0
+    }, scrollSpeed);
+
+}
+

@@ -17,3 +17,13 @@ body,h1,h2,h3,h4,h5 {
 .cursor_pointer {
 	cursor: pointer;
 }
+
+
+
+.button_float_right {
+	position:fixed;
+	right:0;
+	bottom:0;
+	transform: translate(-50%,0%);
+	-ms-transform: translate(-50%,0%)
+}

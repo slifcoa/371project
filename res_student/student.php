@@ -239,6 +239,9 @@ HTML;
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>-->
 
+<input class="button_float_right" type="image" src="images/scroll_top4.png" onclick="js_scroll_top()" />
+
+
 <script type="text/javascript" src="js/js_filter_posts.js"></script>
 <script type="text/javascript" src="js/js_sort_posts.js"></script>
 </body>
