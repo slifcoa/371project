@@ -64,7 +64,7 @@ SQL;
 
 <!-- FORM -->
 <div class="container">
-  
+  <form action="https://nlc3.hopto.org:9033/371project/res_instructor/instructor.php" method="POST">
     <div class="row">
       <div class="col-25">
         <label for="fname">Resource Title*</label>
@@ -104,9 +104,9 @@ SQL;
       </div>
     </div>
     <div class="row">
-      <input type="submit" name="submit_btn" value="Share with Course" onclick="submitPost()">
+      <input type="submit" name="submit_btn" value="Share with Course">
     </div>
-  
+  </form>
 </div>
 <!-- END FORM -->
 
@@ -399,31 +399,7 @@ window.onload = function() {
         window.myPie.update();
     });
 </script>
-<script type="text/javascript">
-    
-    function submitPost() {
 
-        $.ajax({
-    
-            url:    'https://nlc3.hopto.org:9033/371project/res_instructor/ajax.php',
-            cache:  false,
-            method: 'POST',
-            data:   {
-                        title: $('#title').val(),
-                        link: $('#link').val(),
-                        type: $('#type option:selected').text(),
-                        description: $('#description').val()
-
-                    },
-            success: function(msg){
-                
-                location.reload();
-            }
-        });
-
-    }
-
-</script>
 
 </div>
 
