@@ -233,6 +233,16 @@ function js_scroll_top() {
 ******************************************************************************/  
 function new_post() {
 
+    var title       = $('#title').val();
+    var link        = $('#link').val();
+    var type        = $('#type option:selected').text();
+    var description = $('#description').val();
+
+    if (title == '' || link == '' || type == '--') {
+        alert("Please fill in all required fields");
+        return;
+    }
+
     $.ajax({
     
         url:    config.AJAX_PATH,
@@ -240,21 +250,18 @@ function new_post() {
         method: 'POST',
         data:   {
                     use_case:    'insert_post',
-                    title:       $('#title').val(),
-                    link:        $('#link').val(),
-                    type:        $('#type option:selected').text(),
-                    description: $('#description').val()
+                    title:       title,
+                    link:        link,
+                    type:        type,
+                    description: description
 
                 },
         success: function(msg){
             
             $('#title').val('');
             $('#link').val('');
-            $('#type option:selected').text('');
             $('#description').val('');
-
-            alert('hi');
-
+            
         }
     });
 

@@ -50,7 +50,7 @@
                 <label for="fname">Resource Title*</label>
             </div>
             <div class="col-75">
-                <input type="text" id="title" name="title" placeholder="Title of your resource" required>
+                <input type="text" id="title" name="title" placeholder="Title of your resource">
             </div>
         </div>
         <div class="row">
@@ -58,7 +58,7 @@
                 <label for="lname">Link*</label>
             </div>
             <div class="col-75">
-                <input type="text" id="link" name="link" placeholder="URL for your resource" required>
+                <input type="text" id="link" name="link" placeholder="URL for your resource">
             </div>
         </div>
         <div class="row">
@@ -66,8 +66,8 @@
                 <label for="country">Type*</label>
             </div>
             <div class="col-75">
-                <select id="type" name="type" required>
-    	           <option>--</option>
+                <select id="type" name="type">
+    	           <option value="default">--</option>
                     <option value="website"> Website </option>
                     <option value="book">    Book    </option>
                     <option value="article"> Article </option>

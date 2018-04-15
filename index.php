@@ -41,7 +41,7 @@ $_SESSION['user_name']        = $user->userName;
 $_SESSION['course_id']        = $course_id;
 $_SESSION['course_name']      = $course->name;
 $_SESSION['course_id_prefix'] = $course->courseId;
-$_SESSION['email']            = $email;
+$_SESSION['email']            = $user->contact->email;
 $_SESSION['user_fullname']    = $user->name->given . ' ' . $user->name->family;
 
 /**********************************
