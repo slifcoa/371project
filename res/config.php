@@ -14,16 +14,15 @@
 	* URLs
 	**********************************/
 	$url_login      = "http://bb.dataii.com:8080/webapps/login/";
-	$url_student    = $dir_base . "res_student/student.php";
-	$url_instructor = $dir_base . "res_instructor/instructor.php";
+	$url_student    = "student.php";
+	$url_instructor = "instructor.php";
 
 	/**********************************
 	* PATHS
 	**********************************/
-	$path_auth  		 = $dir_base . 'authenticate.php'; 
-	$path_post_functions = $dir_base . "res_student/page_load_functions.php";
-	$path_sql_queries    = $dir_base . "res_student/sql/sql_queries.php";
-	$path_ajax_calls	 = $dir_base . "res_student/ajax/ajax_calls.php";
+	$path_auth  		 = $dir_base . 'res/authenticate.php'; 
+	$path_sql_queries    = $dir_base . "res/sql/sql_queries.php";
+	$path_ajax_calls	 = $dir_base . "res/ajax/ajax_calls.php";
 
 	/**********************************
 	* DATABASE RESOURCES

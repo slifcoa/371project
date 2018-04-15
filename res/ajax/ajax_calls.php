@@ -3,7 +3,7 @@
 	session_start();
 
 	// Get all constants from config file.
-    include_once '../../config.php';
+    include_once '../config.php';
 
     // Authenticate that the user came from BlackBoard.
     require_once($path_auth);
@@ -93,6 +93,50 @@
     		sql_insert_post_comment($_POST['post_id'], $_POST['comment']);
     		echo "";
     		break;
+
+        /**********************************************************************
+        * Add a comment to a post.
+        **********************************************************************/
+        case 'insert_post':
+
+            global $db_connection;
+            $title       = mysqli_real_escape_string($db_connection, $_POST['title']);
+            $description = mysqli_real_escape_string($db_connection, $_POST['description']);
+            $link        = mysqli_real_escape_string($db_connection, $_POST['link']);
+            $type        = mysqli_real_escape_string($db_connection, $_POST['type']);
+            
+            sql_insert_post($title, $description, $link, $type);
+            echo "";
+            break;
+
+
+        /**********************************************************************
+        * Add a comment to a post.
+        **********************************************************************/
+        case 'types_as_percent':
+
+            $data = [];
+            $data[] = sql_count_by_type("website");
+            $data[] = sql_count_by_type("book");
+            $data[] = sql_count_by_type("article");
+            $data[] = sql_count_by_type("video");
+            
+            echo json_encode($data);
+            break;
+
+        /**********************************************************************
+        * Add a comment to a post.
+        **********************************************************************/
+        case 'upvotes_per_type':
+
+            $data = [];
+            $data[] = sql_upvote_count_by_type("website");
+            $data[] = sql_upvote_count_by_type("book");
+            $data[] = sql_upvote_count_by_type("article");
+            $data[] = sql_upvote_count_by_type("video");
+            
+            echo json_encode($data);
+            break;
     
         /**********************************************************************
         * Return empty string.

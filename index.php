@@ -2,7 +2,7 @@
 //Start the session, important for passing data 
 session_start();
 // Needed for initialization of config file.
-include 'config.php';
+include 'res/config.php';
 
 $url = $_POST['launch_presentation_return_url'];
 $query=parse_url($url,PHP_URL_QUERY);
@@ -50,10 +50,10 @@ $_SESSION['user_fullname']    = $user->name->given . ' ' . $user->name->family;
 $_SESSION['secret_key'] = $secret_key;
 if($membership->courseRoleId == "Student"){
 	/********Insert student-version form here********/
-	echo "<meta http-equiv='refresh' content='0;URL=res_student/student.php' />";
+	echo "<meta http-equiv='refresh' content='0;URL=$url_student' />";
 } elseif ($membership->courseRoleId == "Instructor"){
 	/********Insert instructor-version form here********/
-	echo"<meta http-equiv='refresh' content='0;URL=res_instructor/instructor.php' />";
+	echo"<meta http-equiv='refresh' content='0;URL=$url_instructor' />";
 } else {
 	/********NOT GOOD If this gets accessed********/
 	echo "NOT GOOD";

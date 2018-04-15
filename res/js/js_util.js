@@ -212,6 +212,9 @@ function post_get_total_comments(entry_id) {
 
 }
 
+/******************************************************************************
+* 
+******************************************************************************/  
 function js_scroll_top() {
 
     var scrollSpeed = window_position;
@@ -225,3 +228,34 @@ function js_scroll_top() {
 
 }
 
+/******************************************************************************
+* 
+******************************************************************************/  
+function new_post() {
+
+    $.ajax({
+    
+        url:    config.AJAX_PATH,
+        cache:  false,
+        method: 'POST',
+        data:   {
+                    use_case:    'insert_post',
+                    title:       $('#title').val(),
+                    link:        $('#link').val(),
+                    type:        $('#type option:selected').text(),
+                    description: $('#description').val()
+
+                },
+        success: function(msg){
+            
+            $('#title').val('');
+            $('#link').val('');
+            $('#type option:selected').text('');
+            $('#description').val('');
+
+            alert('hi');
+
+        }
+    });
+
+}

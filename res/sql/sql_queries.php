@@ -3,7 +3,7 @@
     session_start();
     
     // Get all constants from config file.
-    include_once '../../config.php';
+    include_once '../config.php';
 
     // Authenticate that the user came from BlackBoard.
     require_once($path_auth);
@@ -155,6 +155,68 @@ SQL;
 SQL;
         global $db_connection;
         mysqli_query($db_connection, $query);
+    }
+
+    /******************************************************************************
+    * Inserts a post into the database.
+    ******************************************************************************/
+    function sql_insert_post($title, $description, $link, $type) {
+
+        $course_id  = $_SESSION['course_id'];
+        $user_id    = $_SESSION['user_id'];
+
+        $query = <<<SQL
+
+    INSERT INTO project_posts (title, description, link, course_id, posted_by, type)
+    VALUES ('{$title}', '{$description}', '{$link}', '{$course_id}','{$user_id}', '{$type}')
+
+SQL;
+        global $db_connection;
+        mysqli_query($db_connection, $query);
+    }
+
+    /******************************************************************************
+    * Inserts a post into the database.
+    ******************************************************************************/
+    function sql_count_by_type($type) {
+
+        $course_id  = $_SESSION['course_id'];
+
+        $query = <<<SQL
+
+    SELECT COUNT(*) AS num
+    FROM project_posts 
+    WHERE type = '{$type}'
+
+SQL;
+        global $db_connection;
+        $row = mysqli_fetch_array(mysqli_query($db_connection, $query));
+        return $row['num'];
+    }
+
+
+    /******************************************************************************
+    * Inserts a post into the database.
+    ******************************************************************************/
+    function sql_upvote_count_by_type($type) {
+
+        $course_id  = $_SESSION['course_id'];
+
+        $query = <<<SQL
+
+    SELECT COUNT(*) AS num 
+    FROM project_upvotes 
+    WHERE post_id IN ( 
+        SELECT post_id 
+        FROM project_posts 
+        WHERE type = '{$type}'
+    )
+
+
+SQL;
+        global $db_connection;
+        $row = mysqli_fetch_array(mysqli_query($db_connection, $query));
+        return $row['num'];
     }
 
 ?>

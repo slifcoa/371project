@@ -3,7 +3,7 @@
     session_start();
 
    // Get all constants from config file.
-    include_once '../config.php';
+    include_once 'res/config.php';
 
     // Authenticate that the user came from BlackBoard.
     require_once($path_auth);
@@ -18,21 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 
-<?php
-  if (!empty($_GET['hacker']) and $_GET['hacker'] == 'always'){
-    echo '<link rel="stylesheet" href="css/css_hacker.css">';
-  }
-  else {
-    echo '<link rel="stylesheet" href="css/css_main.css">';
-  }
-?>
-
+<link rel="stylesheet" href="res/css/css_main.css">'
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="css/css_student.css">
+<link rel="stylesheet" href="res/css/css_student.css">
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/js_config.js"></script>
-<script type="text/javascript" src="js/js_util.js"></script>
+<script type="text/javascript" src="res/js/js_config.js"></script>
+<script type="text/javascript" src="res/js/js_util.js"></script>
 
 <body class="w3-light-grey">
 
@@ -242,7 +234,7 @@ HTML;
 <input class="button_float_right" type="image" src="images/scroll_top4.png" onclick="js_scroll_top()" />
 
 
-<script type="text/javascript" src="js/js_filter_posts.js"></script>
-<script type="text/javascript" src="js/js_sort_posts.js"></script>
+<script type="text/javascript" src="res/js/js_filter_posts.js"></script>
+<script type="text/javascript" src="res/js/js_sort_posts.js"></script>
 </body>
 </html>
