@@ -102,12 +102,18 @@
             <option>-----</option>
             <option value="types_as_percent">Each post type as a percentage of all posts</option>
             <option value="upvotes_per_type">Number of upvotes per post type</option>
-        
+            <option value="get_top_posts">Most Popular Posts</option>
         </select>
 
         <div id="canvas-holder" style="width:40%;margin: auto;">
     	
             <canvas id="chart-area-1"></canvas>
+	</div>
+	
+	<div id="top_posts" style="width:40%;margin: auto;">
+	    <h2 id="first_post" style="text-align:center;"></h2>
+	    <h3 id="second_post" style="text-align:center;"></h3>
+	    <h4 id="third_post" style="text-align:center;"></h4>
         </div>
 
     </div>

@@ -137,7 +137,64 @@
             
             echo json_encode($data);
             break;
-    
+
+
+
+        /**********************************************************************
+        * Show 3 most popular posts.
+	***********************************************************************/
+	case 'get_top_posts':
+		$posts = sql_select_post_all();
+		$tempSizeCurrent = 0;
+
+		$tempSize1 = 0;
+		$post_one = "";
+		$tempSize2 = 0;
+		$post_two = "";
+		$tempSize3 = 0;
+		$post_three = "";
+	    // get every post
+		while($row = mysqli_fetch_array($posts)){
+			// get the size of the current post
+			$tempCurrent = sql_select_post_vote_total($row['post_id']);
+		        
+			// check if the size is greater than the current 3rd place post
+			if($tempSizeCurrent > $tempSize3){
+				
+				// check if the size is greater than the current 2nd place post
+				if($tempSizeCurrent > $tempSize2) {
+					
+					// check if the size is greater than the current 1st place post
+					if($tempSizeCurrent > $tempSize1){
+					    //size is greater than the 1st place post, set as 1st place post
+			        	    $post_one = $row['title'];
+					}
+					// size is not greater than the current 1st place post, set as 2nd place post		
+			    		else {
+			    		    $post_two = $row['title'];
+					}
+					
+				}
+				// size is not greater than the current 2nd place post, set as 3rd place post
+				else {
+			    	    $post_three = $row['title'];
+				}
+			}
+			// size is not greater than current 3rd place post, do nothing
+			else{ 
+			}
+		  }
+	
+		$data[] = [];
+		$data[] = $post_one;
+		$data[] = $post_two;
+		$data[] = $post_three;
+		
+                echo json_encode($data);
+	    	  
+	        break;
+
+
         /**********************************************************************
         * Return empty string.
         **********************************************************************/

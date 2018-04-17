@@ -30,6 +30,22 @@ function select_chart(post_ajax = false, data = null) {
                 create_chart(data, labels);
             }
             break;
+
+
+        /**********************************************************************
+        *
+        **********************************************************************/
+	case "get_top_posts":
+	    if(post_ajax == false) {
+	        select_ajax(use_case);
+	    }
+	    else {
+		$("#top_posts").show();
+		$("#first_post").html(data[0]);
+		$("#second_post").html(data[1]);
+		$("#third_post").html(data[2]);
+	    }
+	    break;
         /**********************************************************************
         *
         **********************************************************************/
@@ -60,7 +76,6 @@ function toggle_stats_view() {
     }
 
 
-}
 
 
 function select_ajax(use_case) {
