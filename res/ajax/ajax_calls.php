@@ -140,59 +140,97 @@
 
 
 
-        /**********************************************************************
-        * Show 3 most popular posts.
+    /**********************************************************************
+    * Show 3 most popular posts.
 	***********************************************************************/
-	case 'get_top_posts':
-		$posts = sql_select_post_all();
-		$tempSizeCurrent = 0;
-
-		$tempSize1 = 0;
-		$post_one = "";
-		$tempSize2 = 0;
-		$post_two = "";
-		$tempSize3 = 0;
-		$post_three = "";
-	    // get every post
-		while($row = mysqli_fetch_array($posts)){
-			// get the size of the current post
-			$tempCurrent = sql_select_post_vote_total($row['post_id']);
-		        
-			// check if the size is greater than the current 3rd place post
-			if($tempSizeCurrent > $tempSize3){
-				
-				// check if the size is greater than the current 2nd place post
-				if($tempSizeCurrent > $tempSize2) {
-					
-					// check if the size is greater than the current 1st place post
-					if($tempSizeCurrent > $tempSize1){
-					    //size is greater than the 1st place post, set as 1st place post
-			        	    $post_one = $row['title'];
-					}
-					// size is not greater than the current 1st place post, set as 2nd place post		
-			    		else {
-			    		    $post_two = $row['title'];
-					}
-					
-				}
-				// size is not greater than the current 2nd place post, set as 3rd place post
-				else {
-			    	    $post_three = $row['title'];
-				}
-			}
-			// size is not greater than current 3rd place post, do nothing
-			else{ 
-			}
-		  }
-	
-		$data[] = [];
-		$data[] = $post_one;
-		$data[] = $post_two;
-		$data[] = $post_three;
+	case 'get_top_posts_upvotes':
+		$posts = sql_top_3_posts(' project_upvotes ','user_id' ,3);
+        $data[] = [];
 		
-                echo json_encode($data);
+		while($row = mysqli_fetch_array($posts)){
+
+            $data[] = $row['title'];
+	    }
+		
+        echo json_encode($data);
 	    	  
-	        break;
+	   break;
+
+    /**********************************************************************
+    * Show 3 most popular posts.
+    ***********************************************************************/
+    case 'get_top_posts_comments':
+        $posts = sql_top_3_posts(' project_comments ',' post_id ', 3);
+        $data[] = [];
+        
+        while($row = mysqli_fetch_array($posts)){
+
+            $data[] = $row['title'];
+        }
+        
+        echo json_encode($data);
+              
+       break;
+
+    /**********************************************************************
+    * Show 3 most popular posts.
+    ***********************************************************************/
+    case 'get_top_posts2':
+        $posts = sql_select_post_all();
+        $tempSizeCurrent = 0;
+
+        $tempSize1 = 0;
+        $post_one = "a";
+        $tempSize2 = 0;
+        $post_two = "b";
+        $tempSize3 = 0;
+        $post_three = "c";
+        // get every post
+        while($row = mysqli_fetch_array($posts)){
+            // get the size of the current post
+            $tempSizeCurrent = intval(sql_select_post_vote_total($row['post_id']));
+                
+            // check if the size is greater than the current 3rd place post
+            if($tempSizeCurrent >= $tempSize3){
+                
+                // check if the size is greater than the current 2nd place post
+                if($tempSizeCurrent >= $tempSize2) {
+                    
+                    // check if the size is greater than the current 1st place post
+                    if($tempSizeCurrent > $tempSize1){
+                        //size is greater than the 1st place post, set as 1st place post
+                            $post_three = $post_two;
+                            $post_two   = $post_one;
+                            $post_one   = $row['title'];
+                    }
+                    // size is not greater than the current 1st place post, set as 2nd place post       
+                    else {
+                        $post_three = $post_two;
+                        $post_two = $row['title'];
+                    }
+                    
+                }
+                // size is not greater than the current 2nd place post, set as 3rd place post
+                else {
+                    $post_three = $row['title'];
+                }
+            }
+            // size is not greater than current 3rd place post, do nothing
+            else{ 
+              //
+            }
+        }
+    
+        $data[] = [];
+        $data[] = $post_one;
+        $data[] = $post_two;
+        $data[] = $post_three;
+        
+                echo json_encode($data);
+              
+            break;
+
+
 
 
         /**********************************************************************

@@ -219,4 +219,34 @@ SQL;
         return $row['num'];
     }
 
+    /******************************************************************************
+    * Inserts a post into the database.
+    ******************************************************************************/
+    function sql_top_3_posts($table, $count_by, $limit) {
+
+        $course_id  = $_SESSION['course_id'];
+
+        $query = <<<SQL
+
+    SELECT *
+    FROM project_posts 
+    where post_id in
+    ( 
+        SELECT post_id
+        FROM 
+        (
+            select post_id
+            from {$table}
+            WHERE course_id = '{$course_id}' 
+            GROUP BY post_id
+            ORDER BY COUNT('{$count_by}') DESC
+            limit {$limit}
+        ) as insert_anything_here
+    )
+
+SQL;
+        global $db_connection;
+        return mysqli_query($db_connection, $query);
+    }
+
 ?>

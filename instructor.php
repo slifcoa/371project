@@ -98,25 +98,26 @@
     <!-- STATS DIV, CANVASES -->
     <div class="stats" style="display: none;">
         <h4 style="text-align: center">Please Select a Statistics Category to View</h4>
-        <select id="chart_dropdown_selector" name="chart" onchange="select_chart()">
+        <select id="chart_dropdown_selector" name="chart" onchange="select_ajax()">
             <option>-----</option>
             <option value="types_as_percent">Each post type as a percentage of all posts</option>
             <option value="upvotes_per_type">Number of upvotes per post type</option>
-            <option value="get_top_posts">Most Popular Posts</option>
+            <option value="get_top_posts_upvotes">Most Upvoted Posts</option>
+            <option value="get_top_posts_comments">Most Commented Posts</option>
         </select>
 
         <div id="canvas-holder" style="width:40%;margin: auto;">
     	
             <canvas id="chart-area-1"></canvas>
-	</div>
+	   </div>
 	
-	<div id="top_posts" style="width:40%;margin: auto;">
-	    <h2 id="first_post" style="text-align:center;"></h2>
-	    <h3 id="second_post" style="text-align:center;"></h3>
-	    <h4 id="third_post" style="text-align:center;"></h4>
+    	<div id="top_posts" style="width:40%;margin: auto;">
+    	    <h2 id="first_post" style="text-align:center;"></h2>
+    	    <h3 id="second_post" style="text-align:center;"></h3>
+    	    <h4 id="third_post" style="text-align:center;"></h4>
         </div>
 
-    </div>
+        </div>
     <br/><br/>
 </div>
 
