@@ -9,6 +9,24 @@
     require_once($path_auth);
 
     /******************************************************************************
+    * 
+    ******************************************************************************/
+    function sql_select_post($post_id) {
+
+        $course_id =  $_SESSION['course_id'];
+
+        $query = <<<SQL
+
+        SELECT *
+        FROM project_posts
+        WHERE (course_id = '{$course_id}') AND (post_id = '{$post_id}')
+SQL;
+
+        global $db_connection;
+        return mysqli_fetch_array(mysqli_query($db_connection, $query));
+    }
+
+    /******************************************************************************
     * Returns all posts for the current course.
     ******************************************************************************/
     function sql_select_post_all() {
@@ -170,6 +188,38 @@ SQL;
     INSERT INTO project_posts (title, description, link, course_id, posted_by, type)
     VALUES ('{$title}', '{$description}', '{$link}', '{$course_id}','{$user_id}', '{$type}')
 
+SQL;
+        global $db_connection;
+        mysqli_query($db_connection, $query);
+    }
+
+    /******************************************************************************
+    * 
+    ******************************************************************************/
+    function sql_update_post($title, $description, $link, $type, $post_id) {
+
+        $course_id  = $_SESSION['course_id'];
+        $user_id    = $_SESSION['user_id'];
+
+        $query = <<<SQL
+
+    UPDATE project_posts 
+    SET title = '{$title}', description = '{$description}', link = '{$link}', type = '{$type}'
+    WHERE post_id = {$post_id}
+SQL;
+        global $db_connection;
+        mysqli_query($db_connection, $query);
+    }
+
+    /******************************************************************************
+    * 
+    ******************************************************************************/
+    function sql_delete_post($post_id) {
+
+        $query = <<<SQL
+
+        DELETE FROM project_posts 
+        WHERE post_id = {$post_id}
 SQL;
         global $db_connection;
         mysqli_query($db_connection, $query);

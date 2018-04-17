@@ -9,6 +9,7 @@
     require_once($path_auth);
 
     include_once $path_sql_queries;
+    include_once $path_new_post;
 
     switch ($_POST['use_case']) {
     	
@@ -32,7 +33,48 @@
     	case 'select_post_all':
     		echo sql_select_post_all();
     		break;
+
+        /**********************************************************************
+        * 
+        **********************************************************************/
+        case 'select_post':
+            $row = sql_select_post($_POST['post_id']);
+            $return_data[] = array(
+
+                'title'       => $row['title'],
+                'link'        => $row['link'],
+                'type'        => $row['type'],
+                'description' => $row['description'],
+                'post_id'     => $row['post_id']
+
+            );  
+            echo json_encode($return_data);
+            break;
     	
+        /**********************************************************************
+        * 
+        **********************************************************************/
+        case 'update_post':
+
+            global $db_connection;
+            $title       = mysqli_real_escape_string($db_connection, $_POST['title']);
+            $description = mysqli_real_escape_string($db_connection, $_POST['description']);
+            $link        = mysqli_real_escape_string($db_connection, $_POST['link']);
+            $type        = mysqli_real_escape_string($db_connection, $_POST['type']);
+
+            sql_update_post($title, $description, $link, $type, $_POST['post_id']);
+            echo "";
+            break;
+
+        /**********************************************************************
+        * 
+        **********************************************************************/
+        case 'delete_post':
+
+            sql_delete_post($_POST['post_id']);
+            echo "";
+            break;
+
         /**********************************************************************
         * Return the vote status (voted=1 or didn't=0) for a post.
         **********************************************************************/
@@ -140,98 +182,37 @@
 
 
 
-    /**********************************************************************
-    * Show 3 most popular posts.
-	***********************************************************************/
-	case 'get_top_posts_upvotes':
-		$posts = sql_top_3_posts(' project_upvotes ','user_id' ,3);
-        $data[] = [];
-		
-		while($row = mysqli_fetch_array($posts)){
+        /**********************************************************************
+        * Show 3 most popular posts.
+    	***********************************************************************/
+    	case 'get_top_posts_upvotes':
+    		$posts = sql_top_3_posts(' project_upvotes ','user_id' ,3);
+            $data[] = [];
+    		
+    		while($row = mysqli_fetch_array($posts)){
 
-            $data[] = $row['title'];
-	    }
-		
-        echo json_encode($data);
-	    	  
-	   break;
+                $data[] = $row['title'];
+    	    }
+    		
+            echo json_encode($data);
+    	    	  
+    	   break;
 
-    /**********************************************************************
-    * Show 3 most popular posts.
-    ***********************************************************************/
-    case 'get_top_posts_comments':
-        $posts = sql_top_3_posts(' project_comments ',' post_id ', 3);
-        $data[] = [];
-        
-        while($row = mysqli_fetch_array($posts)){
+        /**********************************************************************
+        * Show 3 most popular posts.
+        ***********************************************************************/
+        case 'get_top_posts_comments':
+            $posts = sql_top_3_posts(' project_comments ',' post_id ', 3);
+            $data[] = [];
+            
+            while($row = mysqli_fetch_array($posts)){
 
-            $data[] = $row['title'];
-        }
-        
-        echo json_encode($data);
-              
-       break;
-
-    /**********************************************************************
-    * Show 3 most popular posts.
-    ***********************************************************************/
-    case 'get_top_posts2':
-        $posts = sql_select_post_all();
-        $tempSizeCurrent = 0;
-
-        $tempSize1 = 0;
-        $post_one = "a";
-        $tempSize2 = 0;
-        $post_two = "b";
-        $tempSize3 = 0;
-        $post_three = "c";
-        // get every post
-        while($row = mysqli_fetch_array($posts)){
-            // get the size of the current post
-            $tempSizeCurrent = intval(sql_select_post_vote_total($row['post_id']));
-                
-            // check if the size is greater than the current 3rd place post
-            if($tempSizeCurrent >= $tempSize3){
-                
-                // check if the size is greater than the current 2nd place post
-                if($tempSizeCurrent >= $tempSize2) {
-                    
-                    // check if the size is greater than the current 1st place post
-                    if($tempSizeCurrent > $tempSize1){
-                        //size is greater than the 1st place post, set as 1st place post
-                            $post_three = $post_two;
-                            $post_two   = $post_one;
-                            $post_one   = $row['title'];
-                    }
-                    // size is not greater than the current 1st place post, set as 2nd place post       
-                    else {
-                        $post_three = $post_two;
-                        $post_two = $row['title'];
-                    }
-                    
-                }
-                // size is not greater than the current 2nd place post, set as 3rd place post
-                else {
-                    $post_three = $row['title'];
-                }
+                $data[] = $row['title'];
             }
-            // size is not greater than current 3rd place post, do nothing
-            else{ 
-              //
-            }
-        }
-    
-        $data[] = [];
-        $data[] = $post_one;
-        $data[] = $post_two;
-        $data[] = $post_three;
-        
-                echo json_encode($data);
-              
-            break;
-
-
-
+            
+            echo json_encode($data);
+                  
+           break;
 
         /**********************************************************************
         * Return empty string.

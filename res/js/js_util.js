@@ -257,12 +257,104 @@ function new_post() {
 
                 },
         success: function(msg){
-            
-            $('#title').val('');
-            $('#link').val('');
-            $('#description').val('');
+
+            location.reload(); 
             
         }
     });
 
+}
+
+
+function js_post_edit(post_id) {
+
+     $('body,html').animate({
+        scrollTop: 0
+    }, 1000);
+
+    $.ajax({
+    
+        url:    config.AJAX_PATH,
+        cache:  false,
+        method: 'POST',
+        data:   {
+                    use_case:    'select_post',
+                    post_id: post_id
+                },
+        dataType: 'json',
+        success: function(msg){
+
+            var type = msg[0].type;
+            var type = type.toLowerCase().trim();
+
+            $('#title').val(msg[0].title);
+            $('#link').val(msg[0].link);
+            $('#type').val(type);
+            $('#description').val(msg[0].description);
+
+            $('#btnpost').val("Submit Changes");
+            $("#btnpost").attr("onclick","js_post_update('"+msg[0].post_id+"')");
+            $("#btndelete").attr("onclick","js_post_delete('"+msg[0].post_id+"')");
+
+            $('#btndeletewrapper').show();
+
+        }
+    });
+}
+
+function js_post_update(post_id) {
+
+    var title       = $('#title').val();
+    var link        = $('#link').val();
+    var type        = $('#type option:selected').text();
+    var description = $('#description').val();
+
+    if (title == '' || link == '' || type == '--') {
+        alert("Please fill in all required fields");
+        return;
+    }
+
+    $.ajax({
+    
+        url:    config.AJAX_PATH,
+        cache:  false,
+        method: 'POST',
+        data:   {
+                    use_case:    'update_post',
+                    title:       title,
+                    link:        link,
+                    type:        type,
+                    description: description,
+                    post_id:     post_id
+
+                },
+        success: function(msg){
+   
+            location.reload();
+            
+        }
+    });
+
+}
+
+
+function js_post_delete(post_id) {
+
+     if (confirm("Are you sure you want to delete this post?") == true) {
+        $.ajax({
+    
+            url:    config.AJAX_PATH,
+            cache:  false,
+            method: 'POST',
+            data:   {
+                        use_case: 'delete_post',
+                        post_id:  post_id
+                    },
+            success: function(msg){
+       
+                location.reload();
+                
+            }
+        });
+     } 
 }

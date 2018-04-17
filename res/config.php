@@ -20,7 +20,8 @@
 	/**********************************
 	* PATHS
 	**********************************/
-	$path_auth  		 = $dir_base . 'res/authenticate.php'; 
+	$path_auth  		 = $dir_base . 'res/authenticate.php';
+	$path_new_post       = $dir_base . 'res/create_new_post.php';  
 	$path_sql_queries    = $dir_base . "res/sql/sql_queries.php";
 	$path_ajax_calls	 = $dir_base . "res/ajax/ajax_calls.php";
 

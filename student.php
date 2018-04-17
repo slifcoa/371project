@@ -172,25 +172,25 @@ HTML;
         <ul class="w3-ul w3-hoverable w3-white">
             
             <li class="w3-padding-16" onclick="sort_posts_newest()">
-                <img src="images/icon_date_first.png" alt="Image" class="w3-left w3-margin-right width_px_50">
+                <img src="res/images/icon_date_first.png" alt="Image" class="w3-left w3-margin-right width_px_50">
                 <span class="w3-large">Newest</span><br>
                 <span> &ensp; </span>
             </li>
 
             <li class="w3-padding-16" onclick="sort_posts_oldest()">
-                <img src="images/icon_date_last.png" alt="Image" class="w3-left w3-margin-right width_px_50">
+                <img src="res/images/icon_date_last.png" alt="Image" class="w3-left w3-margin-right width_px_50">
                 <span class="w3-large">Oldest</span><br>
                 <span> &ensp; </span>
             </li>
 
             <li class="w3-padding-16" onclick="sort_posts_upvotes()">
-                <img src="images/icon_upvote.png" alt="Image" class="w3-left w3-margin-right width_px_50">
+                <img src="res/images/icon_upvote.png" alt="Image" class="w3-left w3-margin-right width_px_50">
                 <span class="w3-large">Most Upvoted</span><br>
                 <span>  &ensp;  </span>
             </li> 
 
             <li class="w3-padding-16" onclick="sort_posts_comments()">
-                <img src="images/icon_comment.png" alt="Image" class="w3-left w3-margin-right width_px_50">
+                <img src="res/images/icon_comment.png" alt="Image" class="w3-left w3-margin-right width_px_50">
                 <span class="w3-large">Most Commented</span><br>
                 <span>  &ensp;  </span>
             </li>  
