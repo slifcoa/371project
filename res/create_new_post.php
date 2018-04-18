@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+// Get all constants from config file.
+include_once 'res/config.php';
+
+// Authenticate that the user came from BlackBoard.
+require_once($path_auth);
+
 function create_new_post($row) {
 
         $post_id = $row['post_id'];

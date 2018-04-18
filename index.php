@@ -57,5 +57,7 @@ if($membership->courseRoleId == "Student"){
 } else {
 	/********NOT GOOD If this gets accessed********/
 	echo "NOT GOOD";
+	header('Location: '. $url_login);
+
 }
 ?>
