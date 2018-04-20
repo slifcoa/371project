@@ -1,4 +1,15 @@
 var window_position;
+window.onscroll = function() {scrollFunction()};
+var text_scroll_speed = 15;
+
+
+function scrollFunction() {
+    if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+        document.getElementById("btn_scroll_top").style.display = "block";
+    } else {
+        document.getElementById("btn_scroll_top").style.display = "none";
+    }
+}
 
 /******************************************************************************
 * Save the current window position.
@@ -8,6 +19,31 @@ function js_store_window_position() {
     window_position = $(window).scrollTop();
 
 
+}
+
+jQuery(function($) {
+    $('#scrolling_text').mouseover(function() {
+        $(this).css({
+            position: 'absolute'
+        });
+         var dWidth = screen.width - 100; // 100 = image width
+           var dHeight = screen.height - 100; // 100 = image height
+           // dWidth = dWidth/2;
+           var nextX = Math.floor(Math.random() * dWidth);
+           var nextY = Math.floor(Math.random() * dHeight);
+            //alert(dWidth + " " +dHeight);
+        $(this).animate({ left: nextX + 'px', top: nextY + 'px' });
+    });
+});
+
+function text_speed() {
+
+    text_scroll_speed = text_scroll_speed / 3;
+    if (text_scroll_speed < 0.20) {
+        text_scroll_speed = 15;
+    }
+
+    document.getElementById('scrolling_text').style.animationDuration=text_scroll_speed+"s";
 }
 
 /******************************************************************************

@@ -32,11 +32,19 @@
 and is wrapped around the whole page content, except for the footer in this example -->
 <div class="w3-content width_max_75">
 
-<!-- Header -->
+<!-- Header http://jsfiddle.net/karalamalar/atNva/-->
 <header class="w3-container w3-center w3-padding-32"> 
-  <h1><b>$teamName</b></h1>
-  <p>Welcome <span class="w3-tag">Students</span></p>
+   
+ <div class="w3-container w3-center w3-padding-32 marquee">
+  <h1 onclick="text_speed()" class="cursor_pointer"><b>$teamName</b></h1>
+  <span id="scrolling_text">Welcome <span class="w3-tag">Students</span></span>
+</div>
 </header>
+
+
+
+
+
 
 <!-- Grid -->
 <div class="w3-row">
@@ -231,7 +239,7 @@ HTML;
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>-->
 
-<input class="button_float_right" type="image" src="images/scroll_top4.png" onclick="js_scroll_top()" />
+<input id="btn_scroll_top" class="button_float_middle" type="image" src="res/images/scroll_top2.png" onclick="js_scroll_top()" />
 
 
 <script type="text/javascript" src="res/js/js_filter_posts.js"></script>
